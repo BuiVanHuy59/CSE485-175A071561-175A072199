@@ -63,10 +63,6 @@ function register(){
 				$query = "INSERT INTO users (username, email, user_type, password, token, verified) 
 					  VALUES('$username', '$email', 'user', '$password', '$token', 0)";
 			mysqli_query($db, $query);
-			// get id of the created user
-			// $logged_in_user_id = mysqli_insert_id($db);
-			// $_SESSION['user'] = getUserById($logged_in_user_id);
-			// $password = $password;
 			$take = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
 			$results = mysqli_query($db, $take);
 			if (mysqli_num_rows($results) == 1) { 
@@ -79,32 +75,7 @@ function register(){
 				register();
 			}
 		}
-		// if (isset($_POST['user_type'])  ) {
-		// 	$user_type = e($_POST['user_type']);
-		// 	$query = "INSERT INTO users (username, email, user_type, password, token, verified) 
-		// 			  VALUES('$username', '$email', '$user_type', '$password', '', 1)";
-		// 	mysqli_query($db, $query);
-		// 	header('location: create-thanks.php');
-        // }
-        // else if(isset($_POST['user_type']) && $_POST['user_type'] == "user") {
-		// 	$query = "INSERT INTO users (username, email, user_type, password, token, verified) 
-		// 			  VALUES('$username', '$email', 'user', '$password', '$token', 0)";
-		// 	mysqli_query($db, $query);
-		// 	// get id of the created user
-		// 	// $logged_in_user_id = mysqli_insert_id($db);
-		// 	// $_SESSION['user'] = getUserById($logged_in_user_id);
-		// 	// $password = $password;
-		// 	$take = "SELECT * FROM users WHERE username='$username' AND password='$password' LIMIT 1";
-		// 	$results = mysqli_query($db, $take);
-		// 	if (mysqli_num_rows($results) == 1) { 
-		// 		$logged_in_user = mysqli_fetch_assoc($results);
-		// 		$_SESSION['user'] = $logged_in_user;
-		// 		sendMail($email, $token);
-		// 		header('location: register-thanks.php');
-		// 	}
-		// }else{
-		// 	register();
-		// }
+	
 	}
 }
 
@@ -116,16 +87,6 @@ function sendMail($email, $token){
 	"CC: buihuy067@gmail.com";
 	mail($to,$subject,$txt,$headers);
 }
-
-// trả về mảng người dùng từ id của họ
-function getUserById($id){
-	global $db;
-	$query = "SELECT * FROM users WHERE id=" . $id;
-	$result = mysqli_query($db, $query);
-	$user = mysqli_fetch_assoc($result);
-	return $user;
-}
-
 // escape string
 function e($val){
 	global $db;
